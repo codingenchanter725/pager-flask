@@ -1,0 +1,51 @@
+# .gitignore for Flask project
+
+# Virtual environment
+venv/
+
+# Compiled Python files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Dependency directories
+.env
+
+# Local development configuration
+instance/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Editor-specific files
+.vscode/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# Database
+*.db
+
+# Flask instance folder
+instance/
+
+# Byte-compiled Python files
+*.pyc
+
+# Log files
+*.log
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Node.js
+node_modules/
+package-lock.json

@@ -1,0 +1,201 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer utilities {
+    .text-xxs {
+        font-size: .625rem;
+        line-height:  1.4
+    }
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+.cl-header {
+    @apply h-[52px] px-7 py-3 max-md:hidden;
+}
+
+.cl-nav {
+    @apply flex gap-3;
+}
+
+.cl-nav__link {
+    @apply block text-sm rounded px-1.5 py-0.5;
+}
+
+.cl-nav-mb__wrapper {
+    @apply relative;
+}
+
+.cl-nav-mb__btn {
+    @apply flex justify-center items-center w-10 h-9;
+}
+
+.cl-nav-mb__btn-nav,
+.cl-nav-mb__btn-close {
+    @apply w-4 h-4 fill-zinc-600;
+}
+
+.cl-nav-mb__wrapper:hover .cl-nav-mb__btn-nav {
+    @apply hidden;
+}
+
+.cl-nav-mb__btn-close {
+    @apply hidden;
+}
+
+.cl-nav-mb__wrapper:hover .cl-nav-mb__btn-close {
+    @apply block;
+}
+
+.cl-nav-mb {
+    @apply absolute top-full right-0 hidden pt-1.5;
+}
+
+.cl-nav-mb__wrapper:hover .cl-nav-mb {
+    @apply block;
+}
+
+.cl-nav-mb__dropdown {
+    @apply flex flex-col gap-1.5 w-64 border-solid border border-zinc-200 rounded-2xl rounded-tr-none p-3 bg-white/90;
+
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.40);
+    backdrop-filter: blur(40px);
+}
+
+.cl-nav-mb__link {
+    @apply rounded px-2 py-1.5 bg-zinc-200/0 hover:bg-zinc-200/100 text-sm text-zinc-800 transition-colors;
+}
+
+.cl-main {
+    @apply border-solid border-t border-zinc-300 rounded-t-[20px] p-7 pb-0 bg-white max-md:rounded-t-none max-md:p-3 max-md:pb-0;
+
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.12)
+}
+
+.cl-label {
+    @apply block text-zinc-900 text-sm
+}
+
+.cl-select-sm,
+.cl-input-sm {
+    @apply w-full h-8 border-solid border border-zinc-300 rounded-md pl-3 pr-1.5 py-[5px] bg-white text-sm text-black placeholder:text-zinc-500;
+}
+
+.cl-input-sm {
+}
+
+.cl-select-sm__wrapper {
+    @apply relative;
+}
+
+.cl-select-sm {
+    @apply cursor-pointer;
+}
+
+.cl-select-sm:invalid {
+    @apply text-zinc-500;
+}
+
+.cl-select-sm__arrow {
+    @apply absolute top-2 right-2 w-4 h-4 fill-black pointer-events-none;
+}
+
+.cl-checkbox {
+    @apply relative;
+}
+
+.cl-checkbox__input {
+    @apply absolute top-0 left-0 w-full h-full opacity-0;
+}
+
+.cl-checkbox__block {
+    @apply w-5 h-5 border-solid border border-zinc-300 rounded bg-white transition-colors;
+}
+
+input:checked ~ .cl-checkbox__block {
+    @apply bg-[#24A550] border-[#24A550];
+}
+
+.cl-checkbox__icon {
+    @apply absolute top-0.5 left-0.5 opacity-0 w-4 h-4 fill-white transition-opacity;
+}
+
+input:checked ~ .cl-checkbox__icon {
+    @apply opacity-100;
+}
+
+.cl-radio {
+    @apply relative;
+}
+
+.cl-radio__input {
+    @apply absolute top-0 left-0 w-full h-full opacity-0;
+}
+
+.cl-radio__block {
+    @apply w-5 h-5 border-solid border border-zinc-300 rounded-full bg-white transition-all;
+}
+
+input:checked ~ .cl-radio__block {
+    @apply border-[6px] border-[#24A550];
+}
+
+.cl-btn-xs {
+    @apply flex justify-center items-center gap-1 min-w-28 rounded-md px-8 py-1.5 bg-[#24A550] hover:bg-[#21994A] text-sm text-white [&_svg]:w-4 [&_svg]:h-4 [&_svg]:fill-white transition-colors;
+}
+
+.cl-btn-outline-xs {
+    @apply flex justify-center items-center gap-1 min-w-28 border-solid border border-zinc-300 rounded-md px-[30px] py-1 bg-white/60 hover:bg-zinc-100 text-sm text-black [&_svg]:w-4 [&_svg]:h-4 [&_svg]:fill-white transition-colors;
+
+    backdrop-filter: blur(5px);
+}
+
+.cl-btn-close {
+    @apply flex justify-center items-center w-6 h-6 border border-solid border-zinc-300 rounded-md bg-white hover:bg-zinc-100 shadow-sm hover:shadow [&_svg]:w-4 [&_svg]:h-4 [&_svg]:fill-black transition;
+}
+
+.cl-hr {
+    @apply w-full h-px bg-zinc-300;
+}
+
+.cl-modal {
+    @apply fixed top-0 left-0 w-full h-full flex justify-center items-center p-5;
+}
+
+.cl-modal__overlay {
+    @apply absolute top-0 left-0 w-full h-full bg-white/20 backdrop-blur-sm;
+}
+
+.cl-box {
+    @apply flex flex-col gap-3.5 w-full border-solid border border-zinc-200 rounded-2xl p-6 bg-white/90;
+
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.40);
+    backdrop-filter: blur(40px);
+}
+
+.cl-box__header {
+    @apply flex items-center justify-between gap-3.5;
+}
+
+.cl-ava-lg {
+    @apply flex justify-center items-center w-11 h-11 rounded-full bg-rose-400 text-white text-sm font-semibold text-center;
+}
+
+.cl-subnav-link {
+    @apply flex items-center gap-2 px-2 py-1.5 rounded text-sm text-zinc-800 [&_svg]:fill-zinc-700;
+}
+
+.cl-subnav-link_active {
+    @apply bg-zinc-200 text-black [&_svg]:fill-black;
+}
+
+.cl-item-move {
+    @apply flex flex-col gap-1 rounded p-2 bg-zinc-200/70;
+}
+
+.cl-tag {
+    @apply rounded-sm px-2 py-px bg-zinc-400 text-white text-xxs font-medium;
+}

@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="robots" content="noindex">
+    <meta name="author" content="oliwlife.ru">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Document</title>
+	<script src="https://cdn.tailwindcss.com"></script>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="apple-touch-icon-precomposed" href="favicon.png">
+    <link rel="stylesheet" href="reset.css">
+    <style type="text/css">
+		@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap');
+    </style>
+	<!-- Include your Tailwind CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+	
+	<style type="text/tailwindcss">
+	    @layer utilities {
+			.text-xxs {
+				font-size: .625rem;
+				line-height:  1.4
+			}
+		}
+
+		body {
+			font-family: 'Inter', sans-serif;
+		}
+
+		.cl-header {
+			@apply h-[52px] px-7 py-3 max-md:hidden;
+		}
+
+		.cl-nav {
+			@apply flex gap-3;
+		}
+
+		.cl-nav__link {
+			@apply block text-sm rounded px-1.5 py-0.5;
+		}
+
+		.cl-nav-mb__wrapper {
+			@apply relative;
+		}
+
+		.cl-nav-mb__btn {
+			@apply flex justify-center items-center w-10 h-9;
+		}
+
+		.cl-nav-mb__btn-nav,
+		.cl-nav-mb__btn-close {
+			@apply w-4 h-4 fill-zinc-600;
+		}
+
+		.cl-nav-mb__wrapper:hover .cl-nav-mb__btn-nav {
+			@apply hidden;
+		}
+
+		.cl-nav-mb__btn-close {
+			@apply hidden;
+		}
+
+		.cl-nav-mb__wrapper:hover .cl-nav-mb__btn-close {
+			@apply block;
+		}
+
+		.cl-nav-mb {
+			@apply absolute top-full right-0 hidden pt-1.5;
+		}
+
+		.cl-nav-mb__wrapper:hover .cl-nav-mb {
+			@apply block;
+		}
+
+		.cl-nav-mb__dropdown {
+			@apply flex flex-col gap-1.5 w-64 border-solid border border-zinc-200 rounded-2xl rounded-tr-none p-3 bg-white/90;
+
+			box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.40);
+			backdrop-filter: blur(40px);
+		}
+
+		.cl-nav-mb__link {
+			@apply rounded px-2 py-1.5 bg-zinc-200/0 hover:bg-zinc-200/100 text-sm text-zinc-800 transition-colors;
+		}
+
+		.cl-main {
+			@apply border-solid border-t border-zinc-300 rounded-t-[20px] p-7 pb-0 bg-white max-md:rounded-t-none max-md:p-3 max-md:pb-0;
+
+			box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.12)
+		}
+
+		.cl-label {
+			@apply block text-zinc-900 text-sm
+		}
+
+		.cl-select-sm,
+		.cl-input-sm {
+			@apply w-full h-8 border-solid border border-zinc-300 rounded-md pl-3 pr-1.5 py-[5px] bg-white text-sm text-black placeholder:text-zinc-500;
+		}
+
+		.cl-input-sm {
+		}
+
+		.cl-select-sm__wrapper {
+			@apply relative;
+		}
+
+		.cl-select-sm {
+			@apply cursor-pointer;
+		}
+
+		.cl-select-sm:invalid {
+			@apply text-zinc-500;
+		}
+
+		.cl-select-sm__arrow {
+			@apply absolute top-2 right-2 w-4 h-4 fill-black pointer-events-none;
+		}
+
+		.cl-checkbox {
+			@apply relative;
+		}
+
+		.cl-checkbox__input {
+			@apply absolute top-0 left-0 w-full h-full opacity-0;
+		}
+
+		.cl-checkbox__block {
+			@apply w-5 h-5 border-solid border border-zinc-300 rounded bg-white transition-colors;
+		}
+
+		input:checked ~ .cl-checkbox__block {
+			@apply bg-[#24A550] border-[#24A550];
+		}
+
+		.cl-checkbox__icon {
+			@apply absolute top-0.5 left-0.5 opacity-0 w-4 h-4 fill-white transition-opacity;
+		}
+
+		input:checked ~ .cl-checkbox__icon {
+			@apply opacity-100;
+		}
+
+		.cl-radio {
+			@apply relative;
+		}
+
+		.cl-radio__input {
+			@apply absolute top-0 left-0 w-full h-full opacity-0;
+		}
+
+		.cl-radio__block {
+			@apply w-5 h-5 border-solid border border-zinc-300 rounded-full bg-white transition-all;
+		}
+
+		input:checked ~ .cl-radio__block {
+			@apply border-[6px] border-[#24A550];
+		}
+
+		.cl-btn-xs {
+			@apply flex justify-center items-center gap-1 min-w-28 rounded-md px-8 py-1.5 bg-[#24A550] hover:bg-[#21994A] text-sm text-white [&_svg]:w-4 [&_svg]:h-4 [&_svg]:fill-white transition-colors;
+		}
+
+		.cl-btn-outline-xs {
+			@apply flex justify-center items-center gap-1 min-w-28 border-solid border border-zinc-300 rounded-md px-[30px] py-1 bg-white/60 hover:bg-zinc-100 text-sm text-black [&_svg]:w-4 [&_svg]:h-4 [&_svg]:fill-white transition-colors;
+
+			backdrop-filter: blur(5px);
+		}
+
+		.cl-btn-close {
+			@apply flex justify-center items-center w-6 h-6 border border-solid border-zinc-300 rounded-md bg-white hover:bg-zinc-100 shadow-sm hover:shadow [&_svg]:w-4 [&_svg]:h-4 [&_svg]:fill-black transition;
+		}
+
+		.cl-hr {
+			@apply w-full h-px bg-zinc-300;
+		}
+
+		.cl-modal {
+			@apply fixed top-0 left-0 w-full h-full flex justify-center items-center p-5;
+		}
+
+		.cl-modal__overlay {
+			@apply absolute top-0 left-0 w-full h-full bg-white/20 backdrop-blur-sm;
+		}
+
+		.cl-box {
+			@apply flex flex-col gap-3.5 w-full border-solid border border-zinc-200 rounded-2xl p-6 bg-white/90;
+
+			box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.40);
+			backdrop-filter: blur(40px);
+		}
+
+		.cl-box__header {
+			@apply flex items-center justify-between gap-3.5;
+		}
+
+		.cl-ava-lg {
+			@apply flex justify-center items-center w-11 h-11 rounded-full bg-rose-400 text-white text-sm font-semibold text-center;
+		}
+
+		.cl-subnav-link {
+			@apply flex items-center gap-2 px-2 py-1.5 rounded text-sm text-zinc-800 [&_svg]:fill-zinc-700;
+		}
+
+		.cl-subnav-link_active {
+			@apply bg-zinc-200 text-black [&_svg]:fill-black;
+		}
+
+		.cl-item-move {
+			@apply flex flex-col gap-1 rounded p-2 bg-zinc-200/70;
+		}
+
+		.cl-tag {
+			@apply rounded-sm px-2 py-px bg-zinc-400 text-white text-xxs font-medium;
+		}
+	</style>
+</head>
+<body class="bg-zinc-200">
+
+	<div class="cl-header">
+		<nav class="cl-nav">
+			<a class="cl-nav__link" href="#">Scheduled Appointments</a>
+			<a class="cl-nav__link" href="#">Client Tracking</a>
+			<a class="cl-nav__link" href="#">Slots</a>
+			<a class="cl-nav__link" href="#">Reminders</a>
+			<a class="cl-nav__link" href="#">Work Schedule</a>
+			<a class="cl-nav__link" href="#">Analytics</a>
+			<a class="cl-nav__link" href="#">Pager</a>
+			<a class="cl-nav__link bg-[#24A550]/20" href="#">Settings</a>
+		</nav>
+	</div>
+	<div class="cl-main">
+		<div class="cl-box max-w-md">
+			<div class="cl-box__header">
+				<h2 class="text-black text-base font-medium">Active Pagers</h2>
+				<button class="cl-btn-close">
+					<img src="close.svg">
+				</button>
+			</div>
+
+			<div class="flex flex-col gap-1">
+				<div class="flex items-baseline justify-between gap-5">
+					<p class="text-zinc-900 text-sm font-medium">Supervisor: Michael Scott</p>
+					<p class="text-zinc-500 text-xs">2 mins ago</p>
+				</div>
+				<div class="flex items-baseline justify-between gap-5">
+					<p class="text-zinc-700 text-xs">Waiting room over capacity</p>
+					<button class="cl-tag">Deactivate</button>
+				</div>
+			</div>
+
+			<hr class="cl-hr">
+
+			<div class="flex gap-3 justify-end max-sm:flex-col">
+				<button class="cl-btn-xs">
+					<img class="w-4 h-4 fill-white" src="add.svg">
+					Add new
+				</button>
+			</div>
+		</div>
+
+
+
+
+		<div class="cl-box max-w-md">
+			<div class="cl-box__header">
+				<h2 class="text-black text-base font-medium">New Pager</h2>
+				<button class="cl-btn-close">
+					<img class="w-4 h-4 fill-black" src="close.svg">
+				</button>
+			</div>
+
+			<div class="flex flex-col gap-1">
+				<label class="cl-label" for="role">Role</label>
+				<div class="cl-select-sm__wrapper">
+					<select class="cl-select-sm" name="role" id="role" required>
+						<option value="" disabled selected hidden>Select...</option>
+						<option value="Supervisor">Supervisor</option>
+						<option value="Ace">Ace</option>
+						<option value="Developer">Developer</option>
+						<option value="Co-Founder">Co-Founder</option>
+					</select>
+					<img class="cl-select-sm__arrow" src="carret.svg">
+				</div>
+			</div>
+
+			<hr class="cl-hr">
+
+			
+			<div class="flex gap-3 justify-end max-sm:flex-col">
+				<button class="cl-btn-outline-xs">Back</button>
+				<button class="cl-btn-xs !bg-zinc-400 hover:!bg-zinc-500">Notify</button>
+			</div>
+		</div>
+
+
+
+
+		<div class="cl-box max-w-md">
+			<div class="cl-box__header">
+				<h2 class="text-black text-base font-medium">New Pager</h2>
+				<button class="cl-btn-close">
+					<img class="w-4 h-4 fill-black" src="close.svg">
+				</button>
+			</div>
+
+			<div class="flex flex-col gap-1">
+				<label class="cl-label" for="role">Role</label>
+				<div class="cl-select-sm__wrapper">
+					<select class="cl-select-sm" name="role" id="role" required>
+						<option value="" disabled hidden>Select...</option>
+						<option value="Supervisor" selected>Supervisor</option>
+						<option value="Ace">Ace</option>
+						<option value="Developer">Developer</option>
+						<option value="Co-Founder">Co-Founder</option>
+					</select>
+					<img class="cl-select-sm__arrow" src="carret.svg">
+				</div>
+			</div>
+
+			<h3 class="text-sm font-medium text-black">What's the Issue?</h3>
+			<div class="flex flex-col gap-1">
+				<label class="flex items-center gap-2.5 h-8" for="issueWaiting">
+					<div class="cl-radio">
+						<input class="cl-radio__input" name="issue" type="radio" id="issueWaiting">
+						<div class="cl-radio__block"></div>
+					</div>
+					<p class="block text-zinc-900 text-sm">Waiting room over capacity</p>
+				</label>
+				<label class="flex items-center gap-2.5 h-8" for="issueScheduled">
+					<div class="cl-radio">
+						<input class="cl-radio__input" name="issue" type="radio" id="issueScheduled">
+						<div class="cl-radio__block"></div>
+					</div>
+					<p class="block text-zinc-900 text-sm">Scheduled team member unavailable</p>
+				</label>
+				<label class="flex items-center gap-2.5 h-8" for="issueCritical">
+					<div class="cl-radio">
+						<input class="cl-radio__input" name="issue" type="radio" id="issueCritical">
+						<div class="cl-radio__block"></div>
+					</div>
+					<p class="block text-zinc-900 text-sm">Critical system down</p>
+				</label>
+				<label class="flex items-center gap-2.5 h-8" for="issueUrgent">
+					<div class="cl-radio">
+						<input class="cl-radio__input" name="issue" type="radio" id="issueUrgent">
+						<div class="cl-radio__block"></div>
+					</div>
+					<p class="block text-zinc-900 text-sm">Urgent client issue</p>
+				</label>
+				<label class="flex items-center gap-2.5 h-8" for="issueOther">
+					<div class="cl-radio">
+						<input class="cl-radio__input" name="issue" type="radio" id="issueOther">
+						<div class="cl-radio__block"></div>
+					</div>
+					<p class="block text-zinc-900 text-sm">Other:</p>
+					<input class="cl-input-sm" type="text">
+				</label>
+			</div>
+
+			<hr class="cl-hr">
+
+			<div class="flex gap-3 justify-end max-sm:flex-col">
+				<button class="cl-btn-outline-xs">Cancel</button>
+				<button class="cl-btn-xs">Notify</button>
+			</div>
+		</div>
+
+
+
+
+		<div class="cl-box max-w-md">
+			<div class="cl-box__header">
+				<h2 class="text-black text-base font-medium">Supervisor Pager Active</h2>
+				<button class="cl-btn-close">
+					<img class="w-4 h-4 fill-black" src="close.svg">
+				</button>
+			</div>
+
+			<p class="text-black text-sm">Supervisor Michael Scott has been notified.</p>
+			<img class="w-80 h-80 mx-auto" src="illustration_superman.svg">
+
+			<hr class="cl-hr">
+
+			<div class="flex gap-3 justify-end max-sm:flex-col">
+				<button class="cl-btn-xs">Ok</button>
+			</div>
+		</div>
+
+
+
+		<div class="cl-box max-w-md">
+			<div class="cl-box__header">
+				<h2 class="text-black text-base font-medium">Supervisor Pager Deactivated</h2>
+				<button class="cl-btn-close ">
+					<img class="w-4 h-4 fill-black" src="close.svg">
+				</button>
+			</div>
+
+			<p class="text-black text-sm">The pager for supervisor Michael Scott has been deactivated.</p>
+
+			<hr class="cl-hr">
+
+			<div class="flex gap-3 justify-end max-sm:flex-col">
+				<button class="cl-btn-xs">Ok</button>
+			</div>
+		</div>
+
+<div class="flex justify-between items-center gap-3 mb-1.5">
+	<h1 class="text-2xl font-semibold text-black">Settings</h1>
+	<div class="cl-nav-mb__wrapper">
+		<button class="cl-nav-mb__btn">
+			<img class="cl-nav-mb__btn-nav" src="nav.svg">
+			<img class="cl-nav-mb__btn-close" src="close.svg">
+		</button>
+		<div class="cl-nav-mb">
+			<nav class="cl-nav-mb__dropdown">
+				<a class="cl-nav-mb__link" href="#">Scheduled Appointments</a>
+				<a class="cl-nav-mb__link" href="#">Client Tracking</a>
+				<a class="cl-nav-mb__link" href="#">Slots</a>
+				<a class="cl-nav-mb__link" href="#">Reminders</a>
+				<a class="cl-nav-mb__link" href="#">Work Schedule</a>
+				<a class="cl-nav-mb__link" href="#">Analytics</a>
+				<a class="cl-nav-mb__link" href="#">Pager</a>
+				<a class="cl-nav-mb__link !bg-[#24A550]/20" href="#">Settings</a>
+			</nav>
+		</div>
+	</div>
+</div>
+
+<hr class="cl-hr mb-2.5">
+
+<div class="flex items-center gap-3.5 mb-5 max-md:mb-2.5">
+	<div class="cl-ava-lg">GMD</div>
+	<div class="flex flex-col gap-0.5">
+		<p class="text-black text-sm">Michael Scott</p>
+		<p class="text-zinc-400 text-xs">+1 234 567-89-00</p>
+	</div>
+</div>
+
+<div class="flex gap-5 w-full max-w-7xl max-md:flex-col">
+	<div class="flex flex-col gap-1.5 shrink-0 w-72 max-md:w-full">
+		<hr class="cl-hr hidden max-md:block">
+		<div class="flex flex-col gap-0.5">
+			<a class="cl-subnav-link cl-subnav-link_active" href="#">
+				<img class="w-4 h-4" src="user--role.svg">
+				Pager Roles
+			</a>
+			<a class="cl-subnav-link" href="#">
+				<img class="w-4 h-4" src="team_icon.svg">
+				Paged<span class="max-md:hidden"> Team</span> Members
+			</a>
+		</div>
+		<hr class="cl-hr">
+	</div>
+	<div class="flex flex-col grow overflow-hidden">
+		<div class="flex justify-between items-center gap-2 mb-1.5">
+			<h2 class="text-black text-xl">Pager Roles</h2>
+			<button class="cl-btn-xs">
+				<img class="w-4 h-4 fill-white" src="add.svg">
+				Add<span class="max-md:hidden"> role</span>
+			</button>
+		</div>
+
+		<hr class="cl-hr">
+
+		<div class="flex flex-col gap-2 max-w-2xl mt-2">
+			<div class="flex flex-col gap-1 rounded p-2 bg-zinc-200/70">
+				<p class="text-zinc-900 text-sm">Supervisor</p>
+				<p class="text-zinc-600 text-xs truncate">Calendar ID: ===============</p>
+			</div>
+			<div class="cl-item-move">
+				<p class="text-zinc-900 text-sm">Ace</p>
+				<p class="text-zinc-600 text-xs truncate">Calendar ID: ===============</p>
+			</div>
+			<div class="cl-item-move">
+				<p class="text-zinc-900 text-sm">Developer</p>
+				<p class="text-zinc-600 text-xs truncate">Calendar ID: ===============</p>
+			</div>
+			<div class="cl-item-move">
+				<p class="text-zinc-900 text-sm">Co-Founder</p>
+				<p class="text-zinc-600 text-xs truncate">Calendar ID: ===============</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="flex gap-5 w-full max-w-7xl max-md:flex-col">
+	<div class="flex flex-col gap-1.5 shrink-0 w-72 max-md:w-full">
+		<hr class="cl-hr hidden max-md:block">
+		<div class="flex flex-col gap-0.5">
+			<a class="cl-subnav-link" href="#">
+				<img class="w-4 h-4" src="user--role.svg">
+				Pager Roles
+			</a>
+			<a class="cl-subnav-link cl-subnav-link_active" href="#">
+				<img class="w-4 h-4" src="team_icon.svg">
+				Paged<span class="max-md:hidden"> Team</span> Members
+			</a>
+		</div>
+		<hr class="cl-hr">
+	</div>
+	<div class="flex flex-col grow overflow-hidden">
+		<div class="flex justify-between items-center gap-2 mb-1.5">
+			<h2 class="text-black text-xl">Paged<span class="max-md:hidden"> Team</span> Members</h2>
+			<button class="cl-btn-xs">
+				<img class="w-4 h-4 fill-white" src="add.svg">
+				Add<span class="max-md:hidden"> pagee</span>
+			</button>
+		</div>
+
+		<hr class="cl-hr">
+
+		<div class="flex flex-col grow gap-1 max-w-2xl">
+			<div class="flex flex-col gap-1 max-sm:gap-1.5 max-w-2xl py-2">
+				<div class="flex items-center justify-between gap-5 max-w-2xl">
+					<p class="text-sm font-medium text-zinc-900">Michael Scott</p>
+					<div class="flex gap-1.5 max-sm:hidden">
+						<p class="cl-tag">Supervisor</p>
+						<p class="cl-tag">Co-Founder</p>
+					</div>
+				</div>
+				<p class="text-xs text-zinc-400">+1 234 567-89-00, +1 234 567-89-00</p>
+				<div class="hidden max-sm:flex gap-1.5">
+					<p class="cl-tag">Supervisor</p>
+					<p class="cl-tag">Co-Founder</p>
+				</div>
+			</div>
+			<hr class="cl-hr">
+			<div class="flex flex-col gap-1 max-sm:gap-1.5 py-2">
+				<div class="flex items-center justify-between gap-5">
+					<p class="text-sm font-medium text-zinc-900">Michael Scott</p>
+					<div class="flex gap-1.5 max-sm:hidden">
+						<p class="cl-tag">Supervisor</p>
+						<p class="cl-tag">Co-Founder</p>
+					</div>
+				</div>
+				<p class="text-xs text-zinc-400">+1 234 567-89-00, +1 234 567-89-00</p>
+				<div class="hidden max-sm:flex gap-1.5">
+					<p class="cl-tag">Supervisor</p>
+					<p class="cl-tag">Co-Founder</p>
+				</div>
+			</div>
+			<hr class="cl-hr">
+			<div class="flex flex-col gap-1 max-sm:gap-1.5 py-2">
+				<div class="flex items-center justify-between gap-5">
+					<p class="text-sm font-medium text-zinc-900">Michael Scott</p>
+					<div class="flex gap-1.5 max-sm:hidden">
+						<p class="cl-tag">Supervisor</p>
+						<p class="cl-tag">Co-Founder</p>
+					</div>
+				</div>
+				<p class="text-xs text-zinc-400">+1 234 567-89-00, +1 234 567-89-00</p>
+				<div class="hidden max-sm:flex gap-1.5">
+					<p class="cl-tag">Supervisor</p>
+					<p class="cl-tag">Co-Founder</p>
+				</div>
+			</div>
+			<hr class="cl-hr">
+		</div> 
+	</div>
+</div>
+
+
+<div class="cl-box max-w-md">
+	<div class="cl-box__header">
+		<h2 class="text-black text-base font-medium">New Role</h2>
+		<button class="cl-btn-close">
+			<img class="w-4 h-4 fill-black" src="close.svg">
+		</button>
+	</div>
+
+	<div class="flex flex-col gap-1">
+		<label class="cl-label" for="role">Role Name</label>
+		<input class="cl-input-sm" type="text" placeholder="Enter...">
+	</div>
+	<div class="flex flex-col gap-1">
+		<label class="cl-label" for="role">Calendar ID</label>
+		<input class="cl-input-sm" type="text" placeholder="Enter...">
+	</div>
+
+	<hr class="cl-hr">
+
+	<div class="flex gap-3 justify-end max-sm:flex-col">
+		<button class="cl-btn-xs">
+			<img class="w-4 h-4 fill-white" src="add.svg">
+			Add role
+		</button>
+	</div>
+</div>
+
+<!-- <div class="cl-modal">
+	<div class="cl-modal__overlay"></div>
+	<div class="relative cl-box max-w-xl">
+		<div class="cl-box__header">
+			<h2 class="text-black text-base font-medium">New Pagee</h2>
+			<button class="cl-btn-close">
+				<img class="w-4 h-4 fill-black" src="close.svg">
+			</button>
+		</div>
+
+		<div class="flex flex-col gap-1">
+			<label class="cl-label" for="role">Full Name</label>
+			<input class="cl-input-sm" type="text" placeholder="Enter...">
+		</div>
+
+		<div class="grid grid-cols-2 gap-x-2 gap-y-3.5">
+			<label class="flex items-center flex-1 gap-2.5" for="roleSupervisor">
+				<div class="cl-checkbox">
+					<input class="cl-checkbox__input" type="checkbox" id="roleSupervisor">
+					<div class="cl-checkbox__block"></div>
+					<img class="cl-checkbox__icon" src="tick.svg">
+				</div>
+				<p class="block text-zinc-900 text-sm">Supervisor</p>
+			</label>
+			<label class="flex items-center gap-2.5" for="roleAce">
+				<div class="cl-checkbox">
+					<input class="cl-checkbox__input" type="checkbox" id="roleAce">
+					<div class="cl-checkbox__block"></div>
+					<img class="cl-checkbox__icon" src="tick.svg">
+				</div>
+				<p class="block text-zinc-900 text-sm">Ace</p>
+			</label>
+			<label class="flex items-center gap-2.5" for="roleDeveloper">
+				<div class="cl-checkbox">
+					<input class="cl-checkbox__input" type="checkbox" id="roleDeveloper">
+					<div class="cl-checkbox__block"></div>
+					<img class="cl-checkbox__icon" src="tick.svg">
+				</div>
+				<p class="block text-zinc-900 text-sm">Developer</p>
+			</label>
+			<label class="flex items-center gap-2.5" for="roleCoFounder">
+				<div class="cl-checkbox">
+					<input class="cl-checkbox__input" type="checkbox" id="roleCoFounder">
+					<div class="cl-checkbox__block"></div>
+					<img class="cl-checkbox__icon" src="tick.svg">
+				</div>
+				<p class="block text-zinc-900 text-sm">Co-Founder</p>
+			</label>
+		</div>
+
+		<div class="flex flex-col gap-1">
+			<label class="cl-label" for="role">Phone number</label>
+			<div class="flex flex-col gap-1.5">
+				<div class="flex gap-1.5">
+					<div class="cl-select-sm__wrapper shrink-0 w-20">
+						<select class="cl-select-sm" name="role" id="role" required>
+							<option value="+0">+0</option>
+							<option value="+1">+1</option>
+							<option value="+2">+2</option>
+						</select>
+						<img class="cl-select-sm__arrow" src="carret.svg">
+					</div>
+					<input class="cl-input-sm" type="text" placeholder="Enter..." value="234 567-89-00">
+				</div>
+				<div class="flex gap-1.5">
+					<div class="cl-select-sm__wrapper shrink-0 w-20">
+						<select class="cl-select-sm" name="role" id="role" required>
+							<option value="+0">+0</option>
+							<option value="+1">+1</option>
+							<option value="+2">+2</option>
+						</select>
+						<img class="cl-select-sm__arrow" src="carret.svg">
+					</div>
+					<input class="cl-input-sm" type="text" placeholder="Enter...">
+					<button class="cl-btn-xs shrink-0 max-sm:!hidden">
+						<img class="w-4 h-4 fill-white" src="add.svg">
+						Add phone
+					</button>
+				</div>
+				<button class="cl-btn-xs !hidden max-sm:!flex">
+					<img class="w-4 h-4 fill-white" src="add.svg">
+					Add phone
+				</button>
+			</div>
+		</div>
+
+		<hr class="cl-hr">
+
+		<div class="flex gap-3 justify-end max-sm:flex-col">
+			<button class="cl-btn-xs">
+				<img class="w-4 h-4 fill-white" src="add.svg">
+				Add pagee
+			</button>
+		</div>
+	</div>
+</div> -->
+<!-- 
+
+
+
+
+
+
+
+
+
+
+
+	<div class="flex items-center gap-2">
+		<button class="w-9 h-9">
+			<img src="arrow--left.svg">
+		</button>
+		<h2>12 October</h2>
+		<button class="w-9 h-9">
+			<img src="arrow--right.svg">
+		</button>
+	</div>
+
+	<div class="flex items-center flex-wrap gap-3">
+		<button class="rounded px-3 py-1.5 text-xs font-medium text-block">None</button>
+		<button class="rounded px-3 py-1.5 text-xs font-medium text-block">All</button>
+		<button class="rounded px-3 py-1.5 text-xs font-medium text-block">Overridden</button>
+		<button class="rounded px-3 py-1.5 text-xs font-medium text-block">:00</button>
+		<button class="rounded px-3 py-1.5 text-xs font-medium text-block">:10</button>
+		<button class="rounded px-3 py-1.5 text-xs font-medium text-block">:20</button>
+		<button class="rounded px-3 py-1.5 text-xs font-medium text-block">:30</button>
+		<button class="rounded px-3 py-1.5 text-xs font-medium text-block">:40</button>
+		<button class="rounded px-3 py-1.5 text-xs font-medium text-block">:50</button>
+	</div>
+
+	<div class="flex items-center gap-3 rounded bg-zinc-100">
+		<div class="flex items-center gap-2">
+			<div class="w-3.5 h-3.5 rounded-full bg-yellow-800"></div>
+			<p class="text-xs text-black">Tech</p>
+		</div>
+		<div class="flex items-center gap-2">
+			<div class="w-3.5 h-3.5 rounded-full bg-yellow-400"></div>
+			<p class="text-xs text-black">Paupr</p>
+		</div>
+		<div class="flex items-center gap-2">
+			<div class="w-3.5 h-3.5 rounded-full bg-sky-500"></div>
+			<p class="text-xs text-black">Aspr</p>
+		</div>
+		<div class="flex items-center gap-2">
+			<div class="w-3.5 h-3.5 rounded-full bg-rose-400"></div>
+			<p class="text-xs text-black">Ace</p>
+		</div>
+	</div>
+
+
+
+
+
+
+Settings
+
+
+Same Day
+Early
+Scheduled
+Team
+
+
+8:00
+8:10
+8:20
+8:30
+8:40
+8:50
+9:00
+9:10
+9:20
+9:30
+9:40
+9:50
+10:00
+10:10
+10:20
+10:30
+10:50
+11:00
+11:10
+11:20
+11:30
+11:40
+11:50
+12:00
+
+
+
+
+
+ -->
+	</div>
+</body>
+</html>
